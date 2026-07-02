@@ -1,0 +1,9 @@
+# OS junk
+.DS_Store
+**/.DS_Store
+
+# Raw source assets (client-provided originals, design references) - not needed for the deployed site
+Látótér Optika/
+
+# Claude Code project files
+.claude/

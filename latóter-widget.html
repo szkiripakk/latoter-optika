@@ -1,0 +1,749 @@
+<!--
+=================================================================
+  LÁTÓTÉR OPTIKA – WordPress Custom HTML Widget
+=================================================================
+  HASZNÁLAT:
+  1. WordPress admin → Megjelenés → Widgetek → Custom HTML widget
+     VAGY Elementor / Divi / bármely page builder "HTML blokk"
+  2. Másold be teljes egészében ezt a fájlt
+
+  KÉPEK BEÁLLÍTÁSA (kötelező lépés):
+  Töltsd fel a képeket a WordPress médiatárba, majd a <script>
+  blokk legelején cseréld le az IMG_BASE értékét a feltöltési
+  mappa URL-jére.
+  Példa: const IMG_BASE = 'https://latotoeroptika.hu/wp-content/uploads/latoter';
+
+  TARTALOM SZERKESZTÉSE:
+  A <script> blokk elején található CONTENT objektumban
+  szerkeszd az elérhetőséget, nyitvatartást, márkákat és akciókat.
+=================================================================
+-->
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   LÁTÓTÉR OPTIKA – Stíluslap (WordPress-safe, #lto-wrap scoped)
+   ============================================================ */
+:root{--lto-green-dark:#6B7E52;--lto-green:#7A9060;--lto-green-light:#B7C396;--lto-green-muted:rgba(183,195,150,0.14);--lto-beige:#E0E7D7;--lto-beige-dark:#CCCCCC;--lto-black:#2C2820;--lto-white:#FEFEFE;--lto-gray:#7A7570;--lto-gray-light:#EDECEC;--lto-amber:#BA9A91;--lto-font-heading:'DM Sans',system-ui,sans-serif;--lto-font-body:'Inter',system-ui,sans-serif;--lto-radius:.5rem;--lto-radius-lg:1rem;--lto-radius-xl:1.5rem;--lto-shadow-sm:0 2px 8px rgba(0,0,0,.07);--lto-shadow:0 4px 20px rgba(0,0,0,.10);--lto-shadow-lg:0 12px 40px rgba(0,0,0,.14);--lto-transition:.25s ease}
+#lto-wrap{font-family:var(--lto-font-body)!important;font-size:1rem!important;color:var(--lto-black)!important;line-height:1.6!important;background:var(--lto-white);-webkit-text-size-adjust:100%}
+#lto-wrap *,#lto-wrap *::before,#lto-wrap *::after{box-sizing:border-box!important}
+#lto-wrap img{max-width:100%!important;height:auto!important;display:block!important;border:none!important;float:none!important}
+#lto-wrap a{color:inherit!important;text-decoration:none!important}
+#lto-wrap ul,#lto-wrap ol{list-style:none!important;margin:0!important;padding:0!important}
+#lto-wrap p{margin:0}
+
+/* Container */
+#lto-wrap .lto-container{max-width:1280px;margin:0 auto;padding:0 2rem}
+
+/* Gombok */
+#lto-wrap .lto-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:.5rem;padding:.8rem 1.75rem;border-radius:100px!important;font-family:var(--lto-font-body)!important;font-size:.9rem!important;font-weight:600!important;cursor:pointer;border:2px solid transparent!important;background:none;transition:all var(--lto-transition);white-space:nowrap;line-height:1.4!important;text-decoration:none!important;letter-spacing:.01em}
+#lto-wrap .lto-btn:hover{transform:translateY(-2px)}
+#lto-wrap .lto-btn--primary{background:var(--lto-green-dark)!important;color:var(--lto-white)!important;border-color:var(--lto-green-dark)!important;box-shadow:0 4px 16px rgba(31,92,62,.3)}
+#lto-wrap .lto-btn--primary:hover{background:var(--lto-green)!important;border-color:var(--lto-green)!important;box-shadow:0 6px 24px rgba(31,92,62,.4)}
+#lto-wrap .lto-btn--ghost{background:transparent!important;color:var(--lto-black)!important;border-color:rgba(17,17,17,.25)!important}
+#lto-wrap .lto-btn--ghost:hover{border-color:var(--lto-black)!important;background:rgba(17,17,17,.04)!important}
+#lto-wrap .lto-btn--ghost-white{background:transparent!important;color:var(--lto-white)!important;border-color:rgba(255,255,255,.5)!important}
+#lto-wrap .lto-btn--ghost-white:hover{background:var(--lto-white)!important;color:var(--lto-green-dark)!important;border-color:var(--lto-white)!important}
+#lto-wrap .lto-btn--lg{padding:1rem 2.25rem;font-size:1rem!important}
+
+/* Badge */
+#lto-wrap .lto-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(31,92,62,.08);border:1px solid rgba(31,92,62,.18);border-radius:100px;padding:.4rem 1rem;font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--lto-green-dark);margin-bottom:1.5rem}
+#lto-wrap .lto-badge--white{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);color:var(--lto-white)}
+
+/* Szekció */
+#lto-wrap .lto-section{padding:6rem 0}
+#lto-wrap .lto-section--sm{padding:4rem 0}
+#lto-wrap .lto-section--beige{background:var(--lto-beige)}
+#lto-wrap .lto-section--gray{background:var(--lto-gray-light)}
+#lto-wrap .lto-section--dark{background:var(--lto-green-dark);color:var(--lto-white)}
+#lto-wrap .lto-section__eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lto-green-dark);display:block;margin-bottom:.75rem}
+#lto-wrap .lto-section__title{font-family:var(--lto-font-heading)!important;font-size:clamp(2.2rem,4vw,3.2rem)!important;color:var(--lto-black)!important;line-height:1.15!important;margin:0 0 1rem!important;padding:0!important;font-weight:600!important;border:none!important;background:none!important}
+#lto-wrap .lto-section--dark .lto-section__title{color:var(--lto-white)!important}
+#lto-wrap .lto-section__title--center{text-align:center}
+#lto-wrap .lto-section__title em{font-style:italic;color:var(--lto-green-dark)}
+#lto-wrap .lto-section--dark .lto-section__title em{color:var(--lto-green-light)}
+#lto-wrap .lto-section__subtitle{font-size:1.05rem;color:var(--lto-gray);max-width:600px;line-height:1.7;margin:0 auto 3.5rem!important;padding:0}
+#lto-wrap .lto-section--dark .lto-section__subtitle{color:rgba(255,255,255,.65)}
+#lto-wrap .lto-section__subtitle--center{text-align:center}
+
+/* Navigáció */
+#lto-wrap #lto-header{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.97)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(17,17,17,.06);transition:box-shadow var(--lto-transition)}
+#lto-wrap .lto-nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+#lto-wrap .lto-nav__logo-img{height:52px!important;width:auto!important;display:block!important;object-fit:contain}
+#lto-wrap .lto-nav__menu{display:flex;align-items:center;gap:.25rem;list-style:none!important;margin:0!important;padding:0!important}
+#lto-wrap .lto-nav__link{font-weight:500;color:var(--lto-black)!important;transition:color var(--lto-transition);font-size:.875rem;text-decoration:none!important;padding:.5rem .85rem;border-radius:.375rem}
+#lto-wrap .lto-nav__link:hover{color:var(--lto-green-dark)!important;background:var(--lto-green-muted)}
+#lto-wrap .lto-nav__cta{border-radius:100px!important;padding:.6rem 1.4rem!important;font-size:.85rem!important}
+#lto-wrap .lto-nav__hamburger{display:none;flex-direction:column;gap:5px;background:none!important;border:none!important;cursor:pointer;padding:8px;box-shadow:none!important}
+#lto-wrap .lto-nav__hamburger span{display:block;width:24px;height:2px;background:var(--lto-black)!important;border-radius:2px;transition:transform var(--lto-transition),opacity var(--lto-transition)}
+#lto-wrap .lto-nav__hamburger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+#lto-wrap .lto-nav__hamburger.is-open span:nth-child(2){opacity:0}
+#lto-wrap .lto-nav__hamburger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:900px){
+  #lto-wrap .lto-nav__hamburger{display:flex}
+  #lto-wrap .lto-nav__menu{display:none;position:absolute;top:68px;left:0;right:0;background:var(--lto-white)!important;flex-direction:column;align-items:stretch;gap:0;box-shadow:var(--lto-shadow-lg);padding:.75rem 0 1rem!important;border-top:1px solid rgba(17,17,17,.06);z-index:9998}
+  #lto-wrap .lto-nav__menu.is-open{display:flex}
+  #lto-wrap .lto-nav__link{padding:.85rem 1.5rem;display:block;border-radius:0!important;font-size:1rem!important}
+  #lto-wrap .lto-nav__cta{margin:.75rem 1.5rem!important;text-align:center;display:block}
+}
+
+/* Hero – teljes képernyős háttérkép, fent fehérbe olvadó */
+#lto-wrap .lto-hero{background:var(--lto-white);position:relative}
+#lto-wrap .lto-hero__stage{position:relative;height:100vh;min-height:560px;max-height:900px;overflow:hidden;display:flex;align-items:center;animation:ltoFadeInUp .8s ease both}
+#lto-wrap .lto-hero__bg{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 35%;z-index:0}
+#lto-wrap .lto-hero__overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,var(--lto-white) 0%,rgba(255,255,255,.82) 9%,rgba(255,255,255,0) 40%),linear-gradient(0deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,0) 24%);pointer-events:none}
+#lto-wrap .lto-hero__inner{position:relative;z-index:2;width:100%}
+#lto-wrap .lto-hero__content{max-width:540px}
+#lto-wrap .lto-hero__headline{margin:0 0 1.25rem!important;padding:0!important;border:none!important;background:none!important}
+#lto-wrap .lto-hero__word{display:block;font-family:var(--lto-font-heading)!important;font-weight:600;font-size:clamp(2.4rem,6vw,4.6rem);line-height:.98;letter-spacing:-.01em;color:var(--lto-black);text-shadow:0 2px 24px rgba(255,255,255,.55)}
+#lto-wrap .lto-hero__word--2{font-style:italic;color:var(--lto-green-dark)}
+#lto-wrap .lto-hero__tagline{font-size:1.1rem;color:var(--lto-black);line-height:1.6;max-width:420px;margin:0 0 2rem!important;text-shadow:0 1px 16px rgba(255,255,255,.6)}
+#lto-wrap .lto-hero__feature{position:absolute;z-index:3;display:flex;align-items:center;gap:.75rem;background:rgba(254,254,254,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.6);border-radius:18px;padding:.6rem .85rem;box-shadow:var(--lto-shadow)}
+#lto-wrap .lto-hero__feature--left{left:3%;bottom:16%}
+#lto-wrap .lto-hero__feature--right{right:3%;top:16%}
+#lto-wrap .lto-hero__feature-thumb{width:64px;height:48px;border-radius:12px;overflow:hidden;flex-shrink:0}
+#lto-wrap .lto-hero__feature-thumb img{width:100%!important;height:100%!important;object-fit:cover!important}
+#lto-wrap .lto-hero__feature-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--lto-black);line-height:1.25}
+#lto-wrap .lto-hero__pill{display:inline-flex;align-items:center;gap:.9rem;background:var(--lto-black)!important;color:var(--lto-white)!important;border-radius:100px;padding:.8rem 1.7rem;font-size:.85rem;font-weight:600;box-shadow:var(--lto-shadow-lg);white-space:nowrap;transition:transform var(--lto-transition)}
+#lto-wrap .lto-hero__pill:hover{transform:translateY(-2px)}
+#lto-wrap .lto-hero__pill-sep{width:1px;height:16px;background:rgba(255,255,255,.3)}
+#lto-wrap .lto-hero__pill-accent{color:var(--lto-green-light)}
+#lto-wrap .lto-hero__services{position:relative;z-index:5;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:-90px;padding-bottom:1rem}
+#lto-wrap .lto-hero__service{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(135deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.28) 100%);backdrop-filter:blur(20px) saturate(1.7);-webkit-backdrop-filter:blur(20px) saturate(1.7);border:1px solid rgba(255,255,255,.55);border-radius:var(--lto-radius-lg);padding:1.6rem 1.35rem;box-shadow:0 8px 32px rgba(44,40,32,.14),inset 0 1px 0 rgba(255,255,255,.7),inset 0 0 0 1px rgba(255,255,255,.06);transition:transform var(--lto-transition),box-shadow var(--lto-transition),background var(--lto-transition)}
+#lto-wrap .lto-hero__service::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(160deg,rgba(255,255,255,.6) 0%,rgba(255,255,255,0) 42%);pointer-events:none}
+#lto-wrap .lto-hero__service:hover{transform:translateY(-4px);background:linear-gradient(135deg,rgba(255,255,255,.68) 0%,rgba(255,255,255,.38) 100%);box-shadow:0 16px 44px rgba(44,40,32,.20),inset 0 1px 0 rgba(255,255,255,.8)}
+#lto-wrap .lto-hero__service-title{font-family:var(--lto-font-heading)!important;font-size:1.05rem!important;color:var(--lto-black)!important;margin:0 0 .4rem!important;padding:0!important;font-weight:600!important;border:none!important;background:none!important;line-height:1.3}
+#lto-wrap .lto-hero__service-desc{font-size:.82rem;color:var(--lto-gray);line-height:1.6;margin:0}
+@media(max-width:900px){
+  #lto-wrap .lto-hero__stage{height:78vh;min-height:480px}
+  #lto-wrap .lto-hero__feature{padding:.5rem .6rem;gap:.55rem}
+  #lto-wrap .lto-hero__feature-label{font-size:.62rem}
+  #lto-wrap .lto-hero__feature-thumb{width:46px;height:38px}
+  #lto-wrap .lto-hero__feature--left{bottom:9%}
+  #lto-wrap .lto-hero__services{grid-template-columns:repeat(2,1fr);margin-top:-60px}
+}
+@media(max-width:560px){
+  #lto-wrap .lto-hero__stage{height:70vh;min-height:420px}
+  #lto-wrap .lto-hero__feature{display:none}
+  #lto-wrap .lto-hero__services{gap:.6rem;margin-top:1.25rem}
+  #lto-wrap .lto-hero__service{padding:1.1rem .9rem}
+}
+
+/* Stats strip */
+#lto-wrap .lto-strip{background:var(--lto-green-light);padding:2.5rem 0}
+#lto-wrap .lto-strip__inner{display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
+#lto-wrap .lto-strip__item{text-align:center;color:var(--lto-black)}
+#lto-wrap .lto-strip__num{font-family:var(--lto-font-heading)!important;font-size:1.25rem!important;font-weight:600;line-height:1;display:block;color:var(--lto-black)}
+#lto-wrap .lto-strip__label{font-size:.8rem;color:var(--lto-gray);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-top:.35rem;display:block}
+
+/* Bemutatkozás */
+#lto-wrap .lto-about__grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+#lto-wrap .lto-about__mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:1rem}
+#lto-wrap .lto-about__mosaic-main{grid-column:1/-1;border-radius:var(--lto-radius-xl);overflow:hidden;height:320px}
+#lto-wrap .lto-about__mosaic-main img{width:100%!important;height:100%!important;object-fit:cover!important}
+#lto-wrap .lto-about__mosaic-sm{border-radius:var(--lto-radius-lg);overflow:hidden;height:180px}
+#lto-wrap .lto-about__mosaic-sm img{width:100%!important;height:100%!important;object-fit:cover!important}
+#lto-wrap .lto-about__lead{font-family:var(--lto-font-heading)!important;font-size:1.2rem!important;font-weight:600!important;color:var(--lto-black)!important;line-height:1.65;margin:0 0 1.25rem!important}
+#lto-wrap .lto-about__body{color:var(--lto-gray);line-height:1.8;font-size:1rem;margin-bottom:2rem}
+#lto-wrap .lto-about__highlights{display:flex;flex-direction:column;gap:.75rem;margin:0 0 2.5rem!important;list-style:none!important;padding:0!important}
+#lto-wrap .lto-about__highlight{display:flex;align-items:center;gap:.75rem;font-size:.9rem;font-weight:500;color:var(--lto-black)}
+#lto-wrap .lto-about__highlight::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--lto-green-light);flex-shrink:0}
+@media(max-width:900px){
+  #lto-wrap .lto-about__grid{grid-template-columns:1fr;gap:2.5rem}
+  #lto-wrap .lto-about__mosaic-main{height:240px}
+  #lto-wrap .lto-about__mosaic-sm{height:140px}
+}
+
+/* Gallery strip */
+#lto-wrap .lto-gallery-strip{padding:0 0 5rem;overflow:hidden;background:var(--lto-white)}
+#lto-wrap .lto-gallery-strip__track{display:flex;width:max-content;animation:ltoGalleryScroll 45s linear infinite}
+#lto-wrap .lto-gallery-strip:hover .lto-gallery-strip__track{animation-play-state:paused}
+#lto-wrap .lto-gallery-strip__item{flex-shrink:0;width:280px;height:380px;margin-right:1rem;border-radius:var(--lto-radius-xl);overflow:hidden;position:relative}
+#lto-wrap .lto-gallery-strip__item img{width:100%!important;height:100%!important;object-fit:cover!important;transition:transform .5s ease}
+#lto-wrap .lto-gallery-strip__item:hover img{transform:scale(1.04)}
+#lto-wrap .lto-gallery-strip__caption{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.25rem 1.25rem;background:linear-gradient(to top,rgba(17,17,17,.7) 0%,transparent 100%);color:var(--lto-white);font-size:.82rem;font-weight:500}
+@keyframes ltoGalleryScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){#lto-wrap .lto-gallery-strip__track{animation:none}}
+
+/* Szolgáltatások */
+#lto-wrap .lto-services__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+#lto-wrap .lto-service-card{background:linear-gradient(155deg,rgba(183,195,150,.30) 0%,rgba(254,254,254,.95) 62%)!important;border-radius:var(--lto-radius-lg);padding:2rem 1.75rem;transition:transform var(--lto-transition),box-shadow var(--lto-transition),background var(--lto-transition);border:1px solid rgba(183,195,150,.40)!important}
+#lto-wrap .lto-service-card:hover{transform:translateY(-5px);background:linear-gradient(155deg,rgba(183,195,150,.45) 0%,rgba(254,254,254,.98) 60%)!important;box-shadow:0 20px 40px rgba(44,40,32,.14)}
+#lto-wrap .lto-service-card__icon{width:44px;height:44px;margin-bottom:1.25rem;color:var(--lto-green-dark)}
+#lto-wrap .lto-service-card__icon svg{width:100%;height:100%}
+#lto-wrap .lto-service-card__title{font-family:var(--lto-font-heading)!important;font-size:1.1rem!important;color:var(--lto-black)!important;margin:0 0 .6rem!important;padding:0!important;font-weight:600!important;border:none!important;background:none!important;line-height:1.3}
+#lto-wrap .lto-service-card__desc{color:var(--lto-gray);font-size:.875rem;line-height:1.75;margin:0}
+@media(max-width:1024px){#lto-wrap .lto-services__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){#lto-wrap .lto-services__grid{grid-template-columns:1fr}}
+
+/* Márkák */
+#lto-wrap .lto-brands__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;align-items:center}
+#lto-wrap .lto-brand-item{display:flex;align-items:center;justify-content:center;padding:1.25rem 1rem;border-radius:var(--lto-radius-lg);background:var(--lto-gray-light)!important;min-height:80px;transition:background var(--lto-transition);border:1px solid transparent!important}
+#lto-wrap .lto-brand-item:hover{background:var(--lto-beige)!important}
+#lto-wrap .lto-brand-item img{max-height:48px!important;width:auto!important;filter:grayscale(1) opacity(.55);transition:filter var(--lto-transition);box-shadow:none!important}
+#lto-wrap .lto-brand-item:hover img{filter:grayscale(0) opacity(1)}
+#lto-wrap .lto-brand-name{font-weight:600;font-size:.875rem;color:var(--lto-gray);text-align:center;letter-spacing:.03em}
+
+/* Akciók */
+#lto-wrap .lto-promotions__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+#lto-wrap .lto-promo-card{background:linear-gradient(155deg,rgba(183,195,150,.32) 0%,rgba(254,254,254,.96) 58%)!important;border-radius:var(--lto-radius-xl);overflow:hidden;box-shadow:var(--lto-shadow);transition:transform var(--lto-transition),box-shadow var(--lto-transition),background var(--lto-transition);display:flex;flex-direction:column;border:1px solid rgba(183,195,150,.40)!important}
+#lto-wrap .lto-promo-card:hover{transform:translateY(-6px);background:linear-gradient(155deg,rgba(183,195,150,.46) 0%,rgba(254,254,254,.99) 56%)!important;box-shadow:var(--lto-shadow-lg)}
+#lto-wrap .lto-promo-card__body{padding:2rem;flex:1;display:flex;flex-direction:column;gap:1rem}
+#lto-wrap .lto-promo-card__badge{display:inline-block;background:rgba(201,122,18,.1)!important;color:var(--lto-amber)!important;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .85rem;border-radius:100px;align-self:flex-start;border:1px solid rgba(201,122,18,.2)!important}
+#lto-wrap .lto-promo-card__title{font-family:var(--lto-font-heading)!important;font-size:1.4rem!important;font-weight:600!important;color:var(--lto-black)!important;line-height:1.3;margin:0!important;padding:0!important;border:none!important;background:none!important}
+#lto-wrap .lto-promo-card__desc{color:var(--lto-gray);line-height:1.7;font-size:.9rem;margin:0;flex:1}
+#lto-wrap .lto-promo-card .lto-btn{align-self:flex-start}
+
+/* Split */
+#lto-wrap .lto-split{display:grid;grid-template-columns:1fr 1fr;min-height:540px}
+#lto-wrap .lto-split__content{background:var(--lto-beige);display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem;color:var(--lto-black)}
+#lto-wrap .lto-split__title{font-family:var(--lto-font-heading)!important;font-size:clamp(2rem,3.5vw,3rem)!important;font-weight:600;color:var(--lto-black)!important;margin:0 0 1.25rem!important;padding:0!important;border:none!important;background:none!important;line-height:1.15}
+#lto-wrap .lto-split__body{color:var(--lto-gray);line-height:1.75;margin-bottom:2.5rem;font-size:1rem}
+#lto-wrap .lto-split__image{overflow:hidden;position:relative}
+#lto-wrap .lto-split__image img{width:100%!important;height:100%!important;object-fit:cover!important}
+@media(max-width:768px){
+  #lto-wrap .lto-split{grid-template-columns:1fr}
+  #lto-wrap .lto-split__content{padding:3.5rem 1.5rem}
+  #lto-wrap .lto-split__image{height:320px}
+}
+
+/* Időpontfoglalás */
+#lto-wrap .lto-booking{background:var(--lto-white)}
+#lto-wrap .lto-booking__inner{text-align:center;max-width:700px;margin:0 auto}
+#lto-wrap .lto-booking__fallback{display:flex;flex-direction:column;align-items:center;gap:1.25rem;background:var(--lto-beige);border-radius:var(--lto-radius-xl);padding:4rem 3rem;margin-top:2.5rem;border:1px solid var(--lto-beige-dark)!important}
+#lto-wrap .lto-booking__or{color:var(--lto-gray);font-size:.85rem;margin:0}
+#lto-wrap .lto-booking__phone{font-family:var(--lto-font-heading)!important;font-size:2.25rem!important;color:var(--lto-green-dark)!important;font-weight:600;text-decoration:none!important;transition:color var(--lto-transition)}
+#lto-wrap .lto-booking__phone:hover{color:var(--lto-green)!important}
+#lto-wrap .lto-booking__embed iframe{border-radius:var(--lto-radius-xl);box-shadow:var(--lto-shadow);display:block;width:100%;min-height:600px;margin-top:2.5rem;border:none!important}
+
+/* Kapcsolat */
+#lto-wrap .lto-contact__grid{display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start}
+#lto-wrap .lto-contact__block{margin-bottom:2rem}
+#lto-wrap .lto-contact__label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--lto-green-light);margin:0 0 .4rem!important;display:block;font-family:var(--lto-font-body)!important}
+#lto-wrap .lto-contact__block p{color:var(--lto-gray);line-height:1.7;margin:0;font-size:.95rem}
+#lto-wrap .lto-contact__phone,#lto-wrap .lto-contact__email{font-weight:600;color:var(--lto-black)!important;font-size:1.15rem;text-decoration:none!important;transition:color var(--lto-transition)}
+#lto-wrap .lto-contact__phone:hover,#lto-wrap .lto-contact__email:hover{color:var(--lto-green-dark)!important}
+#lto-wrap .lto-contact__hours{border-collapse:collapse;width:100%}
+#lto-wrap .lto-contact__hours td{padding:.4rem 1rem .4rem 0;font-size:.875rem;color:var(--lto-gray);border:none!important}
+#lto-wrap .lto-contact__hours td:first-child{font-weight:600;color:var(--lto-black)!important;width:120px}
+#lto-wrap .lto-hours__day--today td{background:rgba(31,92,62,.05)!important}
+#lto-wrap .lto-hours__day--today td:first-child{color:var(--lto-green-dark)!important}
+#lto-wrap .lto-contact__map iframe{border-radius:var(--lto-radius-xl);box-shadow:var(--lto-shadow);display:block;width:100%;height:500px;border:none!important}
+@media(max-width:900px){
+  #lto-wrap .lto-contact__grid{grid-template-columns:1fr;gap:2.5rem}
+  #lto-wrap .lto-contact__map{order:-1}
+  #lto-wrap .lto-contact__map iframe{height:300px}
+}
+
+/* Footer */
+#lto-wrap .lto-footer{background:var(--lto-black)!important;color:rgba(255,255,255,.55);padding:3.5rem 0 2rem}
+#lto-wrap .lto-footer__main{display:flex;flex-wrap:wrap;gap:2.5rem;justify-content:space-between;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:1.5rem}
+#lto-wrap .lto-footer__logo-img{height:52px!important;width:auto!important;display:block!important;object-fit:contain;filter:invert(1) brightness(1.1);margin-bottom:.75rem}
+#lto-wrap .lto-footer__brand p{font-size:.85rem;max-width:260px;line-height:1.65}
+#lto-wrap .lto-footer__links{display:flex;flex-direction:column;gap:.5rem;list-style:none!important;padding:0!important;margin:0!important}
+#lto-wrap .lto-footer__links a{font-size:.875rem;color:rgba(255,255,255,.55)!important;transition:color var(--lto-transition);text-decoration:none!important}
+#lto-wrap .lto-footer__links a:hover{color:var(--lto-white)!important}
+#lto-wrap .lto-footer__bottom{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
+#lto-wrap .lto-footer__copy{font-size:.8rem}
+#lto-wrap .lto-footer__legal{display:flex;gap:1.5rem;flex-wrap:wrap;list-style:none!important;padding:0!important;margin:0!important}
+#lto-wrap .lto-footer__legal a{font-size:.8rem;color:rgba(255,255,255,.45)!important;transition:color var(--lto-transition);text-decoration:none!important}
+#lto-wrap .lto-footer__legal a:hover{color:var(--lto-white)!important}
+@media(max-width:768px){
+  #lto-wrap .lto-footer__main{flex-direction:column}
+  #lto-wrap .lto-footer__bottom{flex-direction:column;align-items:flex-start}
+}
+
+/* Animáció */
+@keyframes ltoFadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+</style>
+
+<div id="lto-wrap">
+
+  <!-- NAVIGÁCIÓ -->
+  <header id="lto-header">
+    <nav class="lto-nav lto-container">
+      <a href="#" class="lto-nav__logo">
+        <img src="" alt="Látótér Optika" class="lto-nav__logo-img" id="lto-logo-img" />
+      </a>
+      <button class="lto-nav__hamburger" id="lto-hamburger" aria-label="Menü megnyitása" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="lto-nav__menu" id="lto-nav-menu">
+        <li><a href="#bemutatkozas" class="lto-nav__link">Bemutatkozás</a></li>
+        <li><a href="#szolgaltatasok" class="lto-nav__link">Szolgáltatások</a></li>
+        <li><a href="#markak" class="lto-nav__link">Márkáink</a></li>
+        <li><a href="#akciok" class="lto-nav__link">Akciók</a></li>
+        <li><a href="#kapcsolat" class="lto-nav__link">Kapcsolat</a></li>
+        <li><a href="#idopontfoglalas" class="lto-btn lto-btn--primary lto-nav__cta">Időpontot foglalok</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO – Középre helyezett portré, lebegő kártyák -->
+    <section id="hero" class="lto-hero">
+      <div class="lto-hero__stage">
+        <img src="" id="lto-img-hero-bg" alt="Balatoni sétány napsütésben – Látótér Optika" class="lto-hero__bg" loading="eager" />
+        <div class="lto-hero__overlay"></div>
+
+        <div class="lto-hero__inner lto-container">
+          <div class="lto-hero__content">
+            <h1 class="lto-hero__headline">
+              <span class="lto-hero__word lto-hero__word--1">Látótér</span>
+              <span class="lto-hero__word lto-hero__word--2">Optika</span>
+            </h1>
+            <p class="lto-hero__tagline">Modern optika és személyes látásélmény Siófok szívében, a Balaton partján.</p>
+            <a href="#idopontfoglalas" class="lto-hero__pill">
+              <span>Időpontfoglalás</span>
+              <span class="lto-hero__pill-sep"></span>
+              <span class="lto-hero__pill-accent">Ingyenes vizsgálat</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="lto-hero__feature lto-hero__feature--left">
+          <span class="lto-hero__feature-thumb"><img src="" id="lto-img-hero-bluelight" alt="" aria-hidden="true" /></span>
+          <span class="lto-hero__feature-label">Kékfény<br>szűrés</span>
+        </div>
+
+        <div class="lto-hero__feature lto-hero__feature--right">
+          <span class="lto-hero__feature-label">UV400<br>védelem</span>
+          <span class="lto-hero__feature-thumb"><img src="" id="lto-img-hero-uv" alt="" aria-hidden="true" /></span>
+        </div>
+      </div>
+
+      <!-- 4 fő szolgáltatás dobozok -->
+      <div class="lto-hero__services lto-container">
+        <article class="lto-hero__service">
+          <h3 class="lto-hero__service-title">Látásvizsgálat</h3>
+          <p class="lto-hero__service-desc">Alapos, személyre szabott vizsgálat a megfelelő dioptria meghatározásához.</p>
+        </article>
+        <article class="lto-hero__service">
+          <h3 class="lto-hero__service-title">Szemüvegkészítés</h3>
+          <p class="lto-hero__service-desc">Keret és lencse kiválasztása, kényelmes és esztétikus végeredménnyel.</p>
+        </article>
+        <article class="lto-hero__service">
+          <h3 class="lto-hero__service-title">Kontaktlencse</h3>
+          <p class="lto-hero__service-desc">Szakértői tanácsadás kontaktlencsékhez és a megfelelő ápolószerekhez.</p>
+        </article>
+        <article class="lto-hero__service">
+          <h3 class="lto-hero__service-title">Napszemüveg</h3>
+          <p class="lto-hero__service-desc">UV-szűrős napszemüvegek a balatoni szezonra, dioptriás kivitelben is.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- BEMUTATKOZÁS -->
+    <section id="bemutatkozas" class="lto-section">
+      <div class="lto-container lto-about__grid">
+        <div class="lto-about__mosaic">
+          <div class="lto-about__mosaic-main">
+            <img src="" id="lto-img-service" alt="Személyes szemüveg-tanácsadás" loading="lazy" />
+          </div>
+          <div class="lto-about__mosaic-sm">
+            <img src="" id="lto-img-family" alt="Egész család az optikában" loading="lazy" />
+          </div>
+          <div class="lto-about__mosaic-sm">
+            <img src="" id="lto-img-senior" alt="Elégedett vásárló" loading="lazy" />
+          </div>
+        </div>
+        <div class="lto-about__text">
+          <span class="lto-section__eyebrow">Bemutatkozás</span>
+          <h2 class="lto-section__title">A jó látás<br><em>személyes ügy.</em></h2>
+          <p class="lto-about__lead">A Látótér Optika Siófok szívében várja azokat, akik megbízható optikai szolgáltatást, alapos látásvizsgálatot és személyre szabott szemüvegválasztást keresnek.</p>
+          <p class="lto-about__body">Célunk, hogy a megfelelő látásélmény ne csak szükséglet legyen, hanem kényelmes, esztétikus és örömteli mindennapi élmény.</p>
+          <ul class="lto-about__highlights">
+            <li class="lto-about__highlight">Személyes látásvizsgálat és tanácsadás</li>
+            <li class="lto-about__highlight">Helyi, könnyen megközelíthető üzlet</li>
+            <li class="lto-about__highlight">Minőségi keretek és prémium lencsék</li>
+            <li class="lto-about__highlight">Gyors javítás és beállítás</li>
+            <li class="lto-about__highlight">Barátságos, türelmes kiszolgálás</li>
+          </ul>
+          <a href="#idopontfoglalas" class="lto-btn lto-btn--primary lto-btn--lg">Foglaljon időpontot</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY STRIP -->
+    <section class="lto-gallery-strip">
+      <div class="lto-gallery-strip__track">
+        <div class="lto-gallery-strip__item">
+          <img src="" id="lto-img-man-balaton" alt="Balatoni életérzés" loading="lazy" />
+          <div class="lto-gallery-strip__caption">Balatoni napsütés</div>
+        </div>
+        <div class="lto-gallery-strip__item">
+          <img src="" id="lto-img-woman-city" alt="Elegáns hölgy szemüveggel" loading="lazy" />
+          <div class="lto-gallery-strip__caption">Stílus minden napra</div>
+        </div>
+        <div class="lto-gallery-strip__item">
+          <img src="" id="lto-img-friends" alt="Barátok a Balatonnál" loading="lazy" />
+          <div class="lto-gallery-strip__caption">Balatoni hangulat</div>
+        </div>
+        <div class="lto-gallery-strip__item">
+          <img src="" id="lto-img-cafe" alt="Férfi szemüveggel" loading="lazy" />
+          <div class="lto-gallery-strip__caption">Minden stílushoz</div>
+        </div>
+        <div class="lto-gallery-strip__item">
+          <img src="" id="lto-img-grandma" alt="Nagymama és unokája" loading="lazy" />
+          <div class="lto-gallery-strip__caption">Minden generációnak</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SZOLGÁLTATÁSOK -->
+    <section id="szolgaltatasok" class="lto-section">
+      <div class="lto-container">
+        <span class="lto-section__eyebrow" style="text-align:center;display:block">Mivel tudunk segíteni</span>
+        <h2 class="lto-section__title lto-section__title--center">Szolgáltatásaink</h2>
+        <p class="lto-section__subtitle lto-section__subtitle--center">Mindent egy helyen, amire látásának szüksége lehet.</p>
+        <div class="lto-services__grid">
+          <div class="lto-service-card">
+            <div class="lto-service-card__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.636-7 10-7 10 7 10 7-3.636 7-10 7S2 12 2 12z"/></svg></div>
+            <h3 class="lto-service-card__title">Látásvizsgálat</h3>
+            <p class="lto-service-card__desc">Alapos vizsgálat és személyre szabott javaslat a megfelelő dioptria és látáskorrekció meghatározásához.</p>
+          </div>
+          <div class="lto-service-card">
+            <div class="lto-service-card__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="5"/><circle cx="7" cy="12" r="2"/><circle cx="17" cy="12" r="2"/></svg></div>
+            <h3 class="lto-service-card__title">Szemüvegkészítés</h3>
+            <p class="lto-service-card__desc">Segítség a megfelelő keret és lencse kiválasztásában, hogy a szemüveg kényelmes és esztétikus legyen.</p>
+          </div>
+          <div class="lto-service-card">
+            <div class="lto-service-card__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M7 8V6M17 8V6"/></svg></div>
+            <h3 class="lto-service-card__title">Szemüvegkeretek</h3>
+            <p class="lto-service-card__desc">Változatos keretkínálat több stílusban, a klasszikus daraboktól a modernebb, karakteresebb modellekig.</p>
+          </div>
+          <div class="lto-service-card">
+            <div class="lto-service-card__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>
+            <h3 class="lto-service-card__title">Szemüveglencsék</h3>
+            <p class="lto-service-card__desc">Egyfókuszú, multifokális és speciális lencsemegoldások az egyéni igényekhez igazítva.</p>
+          </div>
+          <div class="lto-service-card">
+            <div class="lto-service-card__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div>
+            <h3 class="lto-service-card__title">Kontaktlencse</h3>
+            <p class="lto-service-card__desc">Kontaktlencsékkel és ápolószerekkel kapcsolatos szakértői tanácsadás.</p>
+          </div>
+          <div class="lto-service-card">
+            <div class="lto-service-card__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+            <h3 class="lto-service-card__title">Javítás és beállítás</h3>
+            <p class="lto-service-card__desc">Szemüvegek igazítása, kisebb javítások és kényelmi beállítások helyben.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIFESTYLE SPLIT -->
+    <section class="lto-split">
+      <div class="lto-split__content">
+        <span class="lto-badge">✦ Balatoni életérzés</span>
+        <h2 class="lto-split__title">Jól látni<br>jól is néz ki.</h2>
+        <p class="lto-split__body">Egy jó szemüveg több mint korrekció – stílus, önkifejezés és a mindennapi élet minősége. Segítünk megtalálni a számodra tökéletest.</p>
+        <a href="#idopontfoglalas" class="lto-btn lto-btn--ghost lto-btn--lg">Időpontot foglalok</a>
+      </div>
+      <div class="lto-split__image">
+        <img src="" id="lto-img-friends-split" alt="Balatoni napnyugta" loading="lazy" />
+      </div>
+    </section>
+
+    <!-- MÁRKÁK -->
+    <section id="markak" class="lto-section lto-section--sm">
+      <div class="lto-container">
+        <span class="lto-section__eyebrow" style="text-align:center;display:block">Minőség, amelyre számíthat</span>
+        <h2 class="lto-section__title lto-section__title--center">Forgalmazott márkáink</h2>
+        <p class="lto-section__subtitle lto-section__subtitle--center">Gondosan válogatott prémium szemüvegkeretek, lencsék és optikai termékek.</p>
+        <div class="lto-brands__grid" id="lto-brands-grid"></div>
+      </div>
+    </section>
+
+    <!-- AKCIÓK -->
+    <section id="akciok" class="lto-section lto-section--beige">
+      <div class="lto-container">
+        <span class="lto-section__eyebrow" style="text-align:center;display:block">Negyedévente frissülő ajánlatok</span>
+        <h2 class="lto-section__title lto-section__title--center">Aktuális ajánlataink</h2>
+        <p class="lto-section__subtitle lto-section__subtitle--center">Érdemes visszatérni – rendszeres akcióink mindig valami újat hoznak.</p>
+        <div class="lto-promotions__grid" id="lto-promotions-grid"></div>
+      </div>
+    </section>
+
+    <!-- IDŐPONTFOGLALÁS -->
+    <section id="idopontfoglalas" class="lto-section lto-booking">
+      <div class="lto-container lto-booking__inner">
+        <span class="lto-section__eyebrow" style="text-align:center;display:block">Online foglalás</span>
+        <h2 class="lto-section__title lto-section__title--center">Foglaljon időpontot</h2>
+        <p class="lto-section__subtitle lto-section__subtitle--center">Látásvizsgálatra vagy optikai konzultációra percek alatt foglalhat időpontot.</p>
+        <!--
+          CLEARVISIO EMBED: Ha megérkezik a beágyazási kód, cserélje le a
+          lto-booking__fallback blokkot:
+          <div class="lto-booking__embed">
+            <iframe src="CLEARVISIO_URL" width="100%" height="700" frameborder="0"
+              title="Időpontfoglalás – Látótér Optika" allowfullscreen></iframe>
+          </div>
+        -->
+        <div class="lto-booking__fallback">
+          <p>Az online időpontfoglalás a Clearvisio rendszeren keresztül érhető el.</p>
+          <a href="https://clearvis.io/hu/" target="_blank" rel="noopener noreferrer" class="lto-btn lto-btn--primary lto-btn--lg">Időpontot foglalok online</a>
+          <p class="lto-booking__or">vagy hívjon minket közvetlenül:</p>
+          <a class="lto-booking__phone" id="lto-booking-phone"></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- KAPCSOLAT -->
+    <section id="kapcsolat" class="lto-section lto-section--beige">
+      <div class="lto-container lto-contact__grid">
+        <div class="lto-contact__info">
+          <span class="lto-section__eyebrow">Találjon meg minket</span>
+          <h2 class="lto-section__title">Kapcsolat</h2>
+          <div class="lto-contact__block">
+            <span class="lto-contact__label">Cím</span>
+            <p>8600 Siófok, Sió utca 6. Fsz. 1.</p>
+          </div>
+          <div class="lto-contact__block">
+            <span class="lto-contact__label">Telefon</span>
+            <a class="lto-contact__phone" id="lto-contact-phone"></a>
+          </div>
+          <div class="lto-contact__block">
+            <span class="lto-contact__label">E-mail</span>
+            <a class="lto-contact__email" id="lto-contact-email"></a>
+          </div>
+          <div class="lto-contact__block">
+            <span class="lto-contact__label">Nyitvatartás</span>
+            <table class="lto-contact__hours" id="lto-contact-hours"></table>
+          </div>
+          <div class="lto-contact__block">
+            <span class="lto-contact__label">Megközelítés</span>
+            <p>Optikánk Siófok központi részén, a Sió utca 6. szám alatt található. Könnyen megközelíthető gyalogosan, tömegközlekedéssel és autóval is.</p>
+          </div>
+        </div>
+        <div class="lto-contact__map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2710.8234517892!2d18.038697315831456!3d46.904968679146655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4769f565d0e40f49%3A0x6e9b35e74ad56a4b!2zU2nDs2ZvaywgU2nDs3V0Y2EgNiwgODYwMA!5e0!3m2!1shu!2shu!4v1687600000000!5m2!1shu!2shu" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Látótér Optika – Siófok, Sió utca 6."></iframe>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="lto-footer">
+    <div class="lto-container">
+      <div class="lto-footer__main">
+        <div class="lto-footer__brand">
+          <img src="" id="lto-footer-logo" alt="Látótér Optika" class="lto-footer__logo-img" />
+          <p>Modern optika Siófok szívében.<br>8600 Siófok, Sió utca 6. Fsz. 1.</p>
+        </div>
+        <nav aria-label="Lábléc navigáció">
+          <ul class="lto-footer__links">
+            <li><a href="#bemutatkozas">Bemutatkozás</a></li>
+            <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
+            <li><a href="#markak">Márkáink</a></li>
+            <li><a href="#akciok">Akciók</a></li>
+            <li><a href="#idopontfoglalas">Időpontfoglalás</a></li>
+            <li><a href="#kapcsolat">Kapcsolat</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="lto-footer__bottom">
+        <p class="lto-footer__copy">© <span id="lto-year"></span> Látótér Optika Kft. Minden jog fenntartva.</p>
+        <ul class="lto-footer__legal">
+          <li><a href="/adatkezeles">Adatkezelési tájékoztató</a></li>
+          <li><a href="/impresszum">Impresszum</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- #lto-wrap -->
+
+<script>
+// =================================================================
+//  LÁTÓTÉR OPTIKA – SZERKESZTHETŐ KONFIGURÁCIÓ
+//  Ezt a részt kell szerkeszteni a tartalom és képek frissítéséhez
+// =================================================================
+
+// --- KÉPEK ALAP URL-JE ---
+// HELYI TESZT: 'images' (relatív mappa)
+// WORDPRESS ÉLES: cseréld le erre: 'https://latotoeroptika.hu/wp-content/uploads/latoter'
+const IMG_BASE = 'images';
+
+// --- ELÉRHETŐSÉG ---
+const CONTENT = {
+  contact: {
+    phone: '+36 XX XXX XXXX',
+    phoneDisplay: '+36 XX XXX XXXX',
+    email: 'info@latotoeroptika.hu',
+  },
+
+  // --- NYITVATARTÁS ---
+  openingHours: [
+    { day: 'Hétfő',     hours: '9:00 – 18:00' },
+    { day: 'Kedd',      hours: '9:00 – 18:00' },
+    { day: 'Szerda',    hours: '9:00 – 18:00' },
+    { day: 'Csütörtök', hours: '9:00 – 18:00' },
+    { day: 'Péntek',    hours: '9:00 – 17:00' },
+    { day: 'Szombat',   hours: '10:00 – 14:00' },
+    { day: 'Vasárnap',  hours: 'Zárva' },
+  ],
+
+  // --- FORGALMAZOTT MÁRKÁK ---
+  // logo: üres string = szövegként jelenik meg, fájlnév = képként
+  brands: [
+    { name: 'Márka 1', logo: '' },
+    { name: 'Márka 2', logo: '' },
+    { name: 'Márka 3', logo: '' },
+    { name: 'Márka 4', logo: '' },
+    { name: 'Márka 5', logo: '' },
+    { name: 'Márka 6', logo: '' },
+  ],
+
+  // --- AKTUÁLIS AKCIÓK ---
+  promotions: [
+    {
+      title: '2. szemüveg 50% kedvezménnyel',
+      description: 'Vásároljon két szemüveget, és a másodikért csak a felét fizeti! Akció érvényes 2026. szeptember 30-ig.',
+      badge: 'Nyári ajánlat',
+      cta: 'Érdeklődöm az akcióról',
+    },
+    {
+      title: 'Ingyenes látásvizsgálat',
+      description: 'Foglaljon időpontot látásvizsgálatra – az első vizsgálat díjmentes! Korlátozott időre szóló ajánlat.',
+      badge: 'Ingyenes',
+      cta: 'Időpontot foglalok',
+    },
+  ],
+};
+
+// =================================================================
+//  KÉPEK BEÁLLÍTÁSA (automatikus, IMG_BASE alapján)
+// =================================================================
+(function() {
+  var images = {
+    'lto-logo-img':        IMG_BASE + '/logo-latoter.jpg',
+    'lto-footer-logo':     IMG_BASE + '/logo-latoter.jpg',
+    'lto-img-hero-bg':     IMG_BASE + '/exec-balaton-promenade.png',
+    'lto-img-hero-bluelight': IMG_BASE + '/exec-man-cafe.png',
+    'lto-img-hero-uv':     IMG_BASE + '/exec-man-balaton.png',
+    'lto-img-service':     IMG_BASE + '/exec-service.png',
+    'lto-img-family':      IMG_BASE + '/exec-family.png',
+    'lto-img-senior':      IMG_BASE + '/exec-senior.png',
+    'lto-img-man-balaton': IMG_BASE + '/exec-man-balaton.png',
+    'lto-img-woman-city':  IMG_BASE + '/exec-woman-city.png',
+    'lto-img-friends':     IMG_BASE + '/exec-friends-sunset.png',
+    'lto-img-cafe':        IMG_BASE + '/exec-man-cafe.png',
+    'lto-img-grandma':     IMG_BASE + '/exec-grandma.png',
+    'lto-img-friends-split': IMG_BASE + '/exec-friends-sunset.png',
+  };
+  Object.keys(images).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.src = images[id];
+  });
+})();
+
+// =================================================================
+//  LOGIKA (hamburger, tartalom kitöltés, stb.)
+// =================================================================
+(function() {
+  // Hamburger
+  var hamburger = document.getElementById('lto-hamburger');
+  var navMenu = document.getElementById('lto-nav-menu');
+  if (hamburger && navMenu) {
+    hamburger.addEventListener('click', function() {
+      var isOpen = hamburger.classList.toggle('is-open');
+      navMenu.classList.toggle('is-open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+    });
+    navMenu.querySelectorAll('.lto-nav__link').forEach(function(link) {
+      link.addEventListener('click', function() {
+        hamburger.classList.remove('is-open');
+        navMenu.classList.remove('is-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // Aktuális év
+  var yearEl = document.getElementById('lto-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Elérhetőség
+  var phoneRaw = CONTENT.contact.phone.replace(/\s/g, '');
+  ['lto-contact-phone', 'lto-booking-phone'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.href = 'tel:' + phoneRaw; el.textContent = CONTENT.contact.phoneDisplay; }
+  });
+  var emailEl = document.getElementById('lto-contact-email');
+  if (emailEl) { emailEl.href = 'mailto:' + CONTENT.contact.email; emailEl.textContent = CONTENT.contact.email; }
+
+  // Nyitvatartás
+  var hoursTable = document.getElementById('lto-contact-hours');
+  if (hoursTable) {
+    var jsToContent = [6, 0, 1, 2, 3, 4, 5];
+    var todayIndex = jsToContent[new Date().getDay()];
+    CONTENT.openingHours.forEach(function(row, i) {
+      var tr = document.createElement('tr');
+      var isClosed = row.hours === 'Zárva';
+      if (i === todayIndex) tr.classList.add('lto-hours__day--today');
+      tr.innerHTML = '<td>' + row.day + '</td><td class="' + (isClosed ? 'lto-hours__time--closed' : '') + '">' + row.hours + '</td>';
+      hoursTable.appendChild(tr);
+    });
+  }
+
+  // Márkák
+  var brandsGrid = document.getElementById('lto-brands-grid');
+  if (brandsGrid) {
+    CONTENT.brands.forEach(function(brand) {
+      var div = document.createElement('div');
+      div.className = 'lto-brand-item';
+      if (brand.logo) {
+        var logoSrc = brand.logo.startsWith('http') ? brand.logo : IMG_BASE + '/' + brand.logo;
+        div.innerHTML = '<img src="' + logoSrc + '" alt="' + brand.name + ' logó" loading="lazy" />';
+      } else {
+        div.innerHTML = '<span class="lto-brand-name">' + brand.name + '</span>';
+      }
+      brandsGrid.appendChild(div);
+    });
+  }
+
+  // Akciók
+  var promotionsGrid = document.getElementById('lto-promotions-grid');
+  if (promotionsGrid) {
+    CONTENT.promotions.forEach(function(promo) {
+      var div = document.createElement('div');
+      div.className = 'lto-promo-card';
+      div.innerHTML = '<div class="lto-promo-card__body">' +
+        (promo.badge ? '<span class="lto-promo-card__badge">' + promo.badge + '</span>' : '') +
+        '<h3 class="lto-promo-card__title">' + promo.title + '</h3>' +
+        '<p class="lto-promo-card__desc">' + promo.description + '</p>' +
+        '<a href="#idopontfoglalas" class="lto-btn lto-btn--primary">' + promo.cta + '</a>' +
+        '</div>';
+      promotionsGrid.appendChild(div);
+    });
+  }
+
+  // Galéria végtelen loop (a sávot megduplázzuk a folytonos görgetéshez)
+  var galleryTrack = document.querySelector('.lto-gallery-strip__track');
+  if (galleryTrack && !galleryTrack.dataset.looped) {
+    galleryTrack.dataset.looped = '1';
+    Array.prototype.slice.call(galleryTrack.children).forEach(function(item) {
+      var clone = item.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      if (clone.id) clone.removeAttribute('id');
+      clone.querySelectorAll('[id]').forEach(function(el) { el.removeAttribute('id'); });
+      galleryTrack.appendChild(clone);
+    });
+  }
+
+  // Fejléc árnyék scroll
+  window.addEventListener('scroll', function() {
+    var header = document.getElementById('lto-header');
+    if (header) {
+      header.style.boxShadow = window.scrollY > 10
+        ? '0 2px 16px rgba(0,0,0,0.14)'
+        : '0 2px 8px rgba(0,0,0,0.08)';
+    }
+  }, { passive: true });
+})();
+</script>
