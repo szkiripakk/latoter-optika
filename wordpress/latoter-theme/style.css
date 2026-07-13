@@ -1,0 +1,18 @@
+/*
+Theme Name: Látótér Optika
+Theme URI: https://latoteroptika.hu
+Author: Látótér Optika
+Author URI: https://latoteroptika.hu
+Description: Egyoldalas bemutatkozó téma a siófoki Látótér Optikának ("Balatoni nyár" redesign). A teljes vizuális stílus az index.php <head> részében, a #ltv-wrap alá scope-olva található, így nem ütközik más elemekkel.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.5
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: latoter-optika
+*/
+
+/* A téma teljes stílusa az index.php <head> szakaszában él (a #ltv-wrap alá scope-olva).
+   Ez a fájl a WordPress számára kötelező téma-fejlécet tartalmazza, és ide kerülhet
+   minden későbbi kiegészítő stílus. */
