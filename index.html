@@ -164,6 +164,21 @@ body { margin: 0; }
 #ltv-wrap .ltv-brands__wall { display: flex; flex-wrap: wrap; gap: 0.9rem; }
 #ltv-wrap .ltv-brands__mark { font-family: var(--ltv-font-display) !important; font-size: 1.3rem; font-weight: 600; letter-spacing: -0.01em; color: var(--ltv-ink); padding: 1.1rem 1.9rem; border: 1px solid var(--ltv-line); border-radius: 999px; transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s var(--ltv-ease); cursor: default; }
 #ltv-wrap .ltv-brands__mark:hover { background: var(--ltv-green); color: #FFFFFF; border-color: var(--ltv-green); transform: translateY(-3px); }
+/* Márkák – logós rács, lenyitható */
+#ltv-wrap .ltv-brands__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.9rem; }
+#ltv-wrap .ltv-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.55rem; text-align: center; padding: 1.4rem 1rem; min-height: 118px; border: 1px solid var(--ltv-line); border-radius: var(--ltv-r-card); background: #FFFFFF; transition: transform 0.25s var(--ltv-ease), box-shadow 0.25s var(--ltv-ease), border-color 0.25s ease; }
+#ltv-wrap .ltv-brand:hover { transform: translateY(-3px); box-shadow: var(--ltv-shadow); border-color: var(--ltv-green-soft); }
+#ltv-wrap .ltv-brand__logo { height: 46px; width: auto; max-width: 100%; object-fit: contain; }
+#ltv-wrap .ltv-brand__name { font-family: var(--ltv-font-display) !important; font-size: 1.05rem; font-weight: 600; color: var(--ltv-ink); letter-spacing: -0.01em; }
+#ltv-wrap .ltv-brand.has-logo .ltv-brand__name { font-size: 0.78rem; font-weight: 500; color: var(--ltv-gray); text-transform: uppercase; letter-spacing: 0.07em; }
+#ltv-wrap .ltv-brand.is-hidden { display: none; }
+#ltv-wrap .ltv-brands__more { display: flex; justify-content: center; margin-top: 2.25rem; }
+@media (max-width: 560px) {
+  #ltv-wrap .ltv-brands__grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  #ltv-wrap .ltv-brand { min-height: 102px; padding: 1.1rem 0.6rem; }
+  #ltv-wrap .ltv-brand__logo { height: 38px; }
+  #ltv-wrap .ltv-brand__name { font-size: 0.98rem; }
+}
 
 /* ============================================================
    7 · NYÁRI SÁV – teljes szélességű állítás
@@ -418,64 +433,67 @@ body { margin: 0; }
       <div class="ltv-container">
         <h2 class="ltv-section__title ltv-reveal">Márkák, amikben <strong>megbízunk</strong></h2>
         <p class="ltv-section__lead ltv-reveal">Csak olyan keretet és lencsét adunk a kezébe, amit mi magunk is szívesen hordanánk.</p>
-        <div class="ltv-brands__wall ltv-reveal" id="ltv-brands">
-          <span class="ltv-brands__mark">Zeiss</span>
-          <span class="ltv-brands__mark">Hoya</span>
-          <span class="ltv-brands__mark">Ray-Ban</span>
-          <span class="ltv-brands__mark">Vogue</span>
-          <span class="ltv-brands__mark">Oakley</span>
-          <span class="ltv-brands__mark">Police</span>
-          <span class="ltv-brands__mark">Solano</span>
-          <span class="ltv-brands__mark">Essilor</span>
-          <span class="ltv-brands__mark">Retro</span>
-          <span class="ltv-brands__mark">Carrera</span>
-          <span class="ltv-brands__mark">O'Neil</span>
-          <span class="ltv-brands__mark">Ana Hickmann</span>
-          <span class="ltv-brands__mark">Swarovski</span>
-          <span class="ltv-brands__mark">Lisa Sirani</span>
-          <span class="ltv-brands__mark">Guess</span>
-          <span class="ltv-brands__mark">Tom Tailor</span>
-          <span class="ltv-brands__mark">The Marc Jacobs</span>
-          <span class="ltv-brands__mark">Carolina Herrera</span>
-          <span class="ltv-brands__mark">CAT</span>
-          <span class="ltv-brands__mark">Forbes</span>
-          <span class="ltv-brands__mark">Jaguar</span>
-          <span class="ltv-brands__mark">Adidas</span>
-          <span class="ltv-brands__mark">Pull&amp;Bear</span>
-          <span class="ltv-brands__mark">Vonbogen</span>
-          <span class="ltv-brands__mark">Lacoste</span>
-          <span class="ltv-brands__mark">Nike</span>
-          <span class="ltv-brands__mark">Max&amp;Co</span>
-          <span class="ltv-brands__mark">Lee Cooper</span>
-          <span class="ltv-brands__mark">Vulkan</span>
-          <span class="ltv-brands__mark">Stepper</span>
-          <span class="ltv-brands__mark">Vaude</span>
-          <span class="ltv-brands__mark">Rolling Stones</span>
-          <span class="ltv-brands__mark">Hard Rock</span>
-          <span class="ltv-brands__mark">Nici</span>
-          <span class="ltv-brands__mark">Fila</span>
-          <span class="ltv-brands__mark">Smart</span>
-          <span class="ltv-brands__mark">Cristal</span>
-          <span class="ltv-brands__mark">Mango</span>
-          <span class="ltv-brands__mark">Nano</span>
-          <span class="ltv-brands__mark">Tommy Hilfiger</span>
-          <span class="ltv-brands__mark">Aboriginal</span>
-          <span class="ltv-brands__mark">Inflecto</span>
-          <span class="ltv-brands__mark">Ambrossi</span>
-          <span class="ltv-brands__mark">Guy Laroche</span>
-          <span class="ltv-brands__mark">Agatha Ruiz de la Prada</span>
-          <span class="ltv-brands__mark">Under Armour</span>
-          <span class="ltv-brands__mark">Pierre Cardin</span>
-          <span class="ltv-brands__mark">Polaroid</span>
-          <span class="ltv-brands__mark">Moschino</span>
-          <span class="ltv-brands__mark">Levi's</span>
-          <span class="ltv-brands__mark">Hugo</span>
-          <span class="ltv-brands__mark">Boss</span>
-          <span class="ltv-brands__mark">Jean Louis Bertier</span>
-          <span class="ltv-brands__mark">David Beckham</span>
-          <span class="ltv-brands__mark">Armani Exchange</span>
-          <span class="ltv-brands__mark">Ralph Lauren</span>
-          <span class="ltv-brands__mark">Ozzie</span>
+        <div class="ltv-brands__grid ltv-reveal" id="ltv-brands">
+          <div class="ltv-brand"><img class="ltv-brand__logo" src="images/brands/zeiss.png" alt="Zeiss logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Zeiss</span></div>
+          <div class="ltv-brand"><img class="ltv-brand__logo" src="images/brands/hoya.png" alt="Hoya logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Hoya</span></div>
+          <div class="ltv-brand"><img class="ltv-brand__logo" src="images/brands/ray-ban.png" alt="Ray-Ban logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Ray-Ban</span></div>
+          <div class="ltv-brand"><img class="ltv-brand__logo" src="images/brands/vogue.png" alt="Vogue logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Vogue</span></div>
+          <div class="ltv-brand"><img class="ltv-brand__logo" src="images/brands/oakley.png" alt="Oakley logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Oakley</span></div>
+          <div class="ltv-brand"><img class="ltv-brand__logo" src="images/brands/police.png" alt="Police logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Police</span></div>
+          <div class="ltv-brand"><img class="ltv-brand__logo" src="images/brands/solano.png" alt="Solano logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Solano</span></div>
+          <div class="ltv-brand"><img class="ltv-brand__logo" src="images/brands/essilor.png" alt="Essilor logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Essilor</span></div>
+          <div class="ltv-brand"><img class="ltv-brand__logo" src="images/brands/retro.png" alt="Retro logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Retro</span></div>
+          <div class="ltv-brand"><img class="ltv-brand__logo" src="images/brands/carrera.png" alt="Carrera logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Carrera</span></div>
+          <div class="ltv-brand"><img class="ltv-brand__logo" src="images/brands/oneil.png" alt="O'Neil logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">O'Neil</span></div>
+          <div class="ltv-brand"><img class="ltv-brand__logo" src="images/brands/ana-hickmann.png" alt="Ana Hickmann logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Ana Hickmann</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/swarovski.png" alt="Swarovski logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Swarovski</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/lisa-sirani.png" alt="Lisa Sirani logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Lisa Sirani</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/guess.png" alt="Guess logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Guess</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/tom-tailor.png" alt="Tom Tailor logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Tom Tailor</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/the-marc-jacobs.png" alt="The Marc Jacobs logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">The Marc Jacobs</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/carolina-herrera.png" alt="Carolina Herrera logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Carolina Herrera</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/cat.png" alt="CAT logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">CAT</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/forbes.png" alt="Forbes logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Forbes</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/jaguar.png" alt="Jaguar logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Jaguar</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/adidas.png" alt="Adidas logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Adidas</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/pull-and-bear.png" alt="Pull&amp;Bear logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Pull&amp;Bear</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/vonbogen.png" alt="Vonbogen logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Vonbogen</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/lacoste.png" alt="Lacoste logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Lacoste</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/nike.png" alt="Nike logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Nike</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/max-and-co.png" alt="Max&amp;Co logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Max&amp;Co</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/lee-cooper.png" alt="Lee Cooper logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Lee Cooper</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/vulkan.png" alt="Vulkan logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Vulkan</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/stepper.png" alt="Stepper logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Stepper</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/vaude.png" alt="Vaude logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Vaude</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/rolling-stones.png" alt="Rolling Stones logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Rolling Stones</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/hard-rock.png" alt="Hard Rock logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Hard Rock</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/nici.png" alt="Nici logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Nici</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/fila.png" alt="Fila logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Fila</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/smart.png" alt="Smart logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Smart</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/cristal.png" alt="Cristal logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Cristal</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/mango.png" alt="Mango logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Mango</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/nano.png" alt="Nano logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Nano</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/tommy-hilfiger.png" alt="Tommy Hilfiger logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Tommy Hilfiger</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/aboriginal.png" alt="Aboriginal logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Aboriginal</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/inflecto.png" alt="Inflecto logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Inflecto</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/ambrossi.png" alt="Ambrossi logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Ambrossi</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/guy-laroche.png" alt="Guy Laroche logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Guy Laroche</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/agatha-ruiz-de-la-prada.png" alt="Agatha Ruiz de la Prada logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Agatha Ruiz de la Prada</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/under-armour.png" alt="Under Armour logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Under Armour</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/pierre-cardin.png" alt="Pierre Cardin logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Pierre Cardin</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/polaroid.png" alt="Polaroid logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Polaroid</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/moschino.png" alt="Moschino logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Moschino</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/levis.png" alt="Levi's logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Levi's</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/hugo.png" alt="Hugo logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Hugo</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/boss.png" alt="Boss logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Boss</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/jean-louis-bertier.png" alt="Jean Louis Bertier logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Jean Louis Bertier</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/david-beckham.png" alt="David Beckham logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">David Beckham</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/armani-exchange.png" alt="Armani Exchange logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Armani Exchange</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/ralph-lauren.png" alt="Ralph Lauren logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Ralph Lauren</span></div>
+          <div class="ltv-brand is-hidden"><img class="ltv-brand__logo" src="images/brands/ozzie.png" alt="Ozzie logó" loading="lazy" onload="this.closest(&#39;.ltv-brand&#39;).classList.add(&#39;has-logo&#39;)" onerror="this.remove()"><span class="ltv-brand__name">Ozzie</span></div>
+        </div>
+        <div class="ltv-brands__more ltv-reveal">
+          <button type="button" class="ltv-btn ltv-btn--glass" id="ltv-brands-toggle" aria-expanded="false">Összes márka</button>
         </div>
       </div>
     </section>
@@ -649,6 +667,20 @@ body { margin: 0; }
     reveals.forEach(function (el) { io.observe(el); });
   } else {
     reveals.forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  // === MÁRKÁK LENYITÁS ===
+  var brandsToggle = document.getElementById('ltv-brands-toggle');
+  if (brandsToggle) {
+    var hiddenBrands = document.querySelectorAll('#ltv-brands .ltv-brand.is-hidden');
+    var collapsedLabel = 'Összes márka (+' + hiddenBrands.length + ')';
+    brandsToggle.textContent = collapsedLabel;
+    brandsToggle.addEventListener('click', function () {
+      var expanded = brandsToggle.getAttribute('aria-expanded') === 'true';
+      hiddenBrands.forEach(function (el) { el.classList.toggle('is-hidden', expanded); });
+      brandsToggle.setAttribute('aria-expanded', String(!expanded));
+      brandsToggle.textContent = expanded ? collapsedLabel : 'Kevesebb márka';
+    });
   }
 
   // === FEJLÉC ÁRNYÉK (sentinel + IO, nem scroll-listener) ===

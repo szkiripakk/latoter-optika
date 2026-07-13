@@ -87,6 +87,20 @@ function latoter_brands_list() {
 }
 
 /**
+ * Márkanévből fájlnév-barát "slug" (a logó fájlnevéhez).
+ * Pl. "Ray-Ban" => "ray-ban", "Pull&Bear" => "pull-and-bear", "O'Neil" => "oneil".
+ *
+ * @param string $name
+ * @return string
+ */
+function latoter_brand_slug( $name ) {
+	$slug = str_replace( array( '&', "'" ), array( ' and ', '' ), (string) $name );
+	$slug = strtolower( $slug );
+	$slug = preg_replace( '/[^a-z0-9]+/', '-', $slug );
+	return trim( $slug, '-' );
+}
+
+/**
  * Alapértelmezett nyitvatartás: kulcs => array( nap neve, órák ).
  *
  * @return array

@@ -157,6 +157,21 @@ body { margin: 0; }
 #ltv-wrap .ltv-brands__wall { display: flex; flex-wrap: wrap; gap: 0.9rem; }
 #ltv-wrap .ltv-brands__mark { font-family: var(--ltv-font-display) !important; font-size: 1.3rem; font-weight: 600; letter-spacing: -0.01em; color: var(--ltv-ink); padding: 1.1rem 1.9rem; border: 1px solid var(--ltv-line); border-radius: 999px; transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s var(--ltv-ease); cursor: default; }
 #ltv-wrap .ltv-brands__mark:hover { background: var(--ltv-green); color: #FFFFFF; border-color: var(--ltv-green); transform: translateY(-3px); }
+/* Márkák – logós rács, lenyitható */
+#ltv-wrap .ltv-brands__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.9rem; }
+#ltv-wrap .ltv-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.55rem; text-align: center; padding: 1.4rem 1rem; min-height: 118px; border: 1px solid var(--ltv-line); border-radius: var(--ltv-r-card); background: #FFFFFF; transition: transform 0.25s var(--ltv-ease), box-shadow 0.25s var(--ltv-ease), border-color 0.25s ease; }
+#ltv-wrap .ltv-brand:hover { transform: translateY(-3px); box-shadow: var(--ltv-shadow); border-color: var(--ltv-green-soft); }
+#ltv-wrap .ltv-brand__logo { height: 46px; width: auto; max-width: 100%; object-fit: contain; }
+#ltv-wrap .ltv-brand__name { font-family: var(--ltv-font-display) !important; font-size: 1.05rem; font-weight: 600; color: var(--ltv-ink); letter-spacing: -0.01em; }
+#ltv-wrap .ltv-brand.has-logo .ltv-brand__name { font-size: 0.78rem; font-weight: 500; color: var(--ltv-gray); text-transform: uppercase; letter-spacing: 0.07em; }
+#ltv-wrap .ltv-brand.is-hidden { display: none; }
+#ltv-wrap .ltv-brands__more { display: flex; justify-content: center; margin-top: 2.25rem; }
+@media (max-width: 560px) {
+  #ltv-wrap .ltv-brands__grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  #ltv-wrap .ltv-brand { min-height: 102px; padding: 1.1rem 0.6rem; }
+  #ltv-wrap .ltv-brand__logo { height: 38px; }
+  #ltv-wrap .ltv-brand__name { font-size: 0.98rem; }
+}
 
 /* ============================================================
    7 · NYÁRI SÁV – teljes szélességű állítás
@@ -412,10 +427,22 @@ body { margin: 0; }
       <div class="ltv-container">
         <h2 class="ltv-section__title ltv-reveal">Márkák, amikben <strong>megbízunk</strong></h2>
         <p class="ltv-section__lead ltv-reveal">Csak olyan keretet és lencsét adunk a kezébe, amit mi magunk is szívesen hordanánk.</p>
-        <div class="ltv-brands__wall ltv-reveal" id="ltv-brands">
-<?php foreach ( latoter_brands_list() as $latoter_brand ) : ?>
-          <span class="ltv-brands__mark"><?php echo esc_html( $latoter_brand ); ?></span>
-<?php endforeach; ?>
+        <div class="ltv-brands__grid ltv-reveal" id="ltv-brands">
+<?php
+		$latoter_i = 0;
+		foreach ( latoter_brands_list() as $latoter_brand ) :
+			$latoter_slug   = latoter_brand_slug( $latoter_brand );
+			$latoter_hidden = ( $latoter_i >= 12 ) ? ' is-hidden' : '';
+			$latoter_logo   = get_template_directory_uri() . '/images/brands/' . $latoter_slug . '.png';
+			?>
+          <div class="ltv-brand<?php echo esc_attr( $latoter_hidden ); ?>"><img class="ltv-brand__logo" src="<?php echo esc_url( $latoter_logo ); ?>" alt="<?php echo esc_attr( $latoter_brand ); ?> logó" loading="lazy" onload="this.closest('.ltv-brand').classList.add('has-logo')" onerror="this.remove()"><span class="ltv-brand__name"><?php echo esc_html( $latoter_brand ); ?></span></div>
+			<?php
+			$latoter_i++;
+		endforeach;
+		?>
+        </div>
+        <div class="ltv-brands__more ltv-reveal">
+          <button type="button" class="ltv-btn ltv-btn--glass" id="ltv-brands-toggle" aria-expanded="false">Összes márka</button>
         </div>
       </div>
     </section>
@@ -589,6 +616,20 @@ body { margin: 0; }
     reveals.forEach(function (el) { io.observe(el); });
   } else {
     reveals.forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  // === MÁRKÁK LENYITÁS ===
+  var brandsToggle = document.getElementById('ltv-brands-toggle');
+  if (brandsToggle) {
+    var hiddenBrands = document.querySelectorAll('#ltv-brands .ltv-brand.is-hidden');
+    var collapsedLabel = 'Összes márka (+' + hiddenBrands.length + ')';
+    brandsToggle.textContent = collapsedLabel;
+    brandsToggle.addEventListener('click', function () {
+      var expanded = brandsToggle.getAttribute('aria-expanded') === 'true';
+      hiddenBrands.forEach(function (el) { el.classList.toggle('is-hidden', expanded); });
+      brandsToggle.setAttribute('aria-expanded', String(!expanded));
+      brandsToggle.textContent = expanded ? collapsedLabel : 'Kevesebb márka';
+    });
   }
 
   // === FEJLÉC ÁRNYÉK (sentinel + IO, nem scroll-listener) ===
