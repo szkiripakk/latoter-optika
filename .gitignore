@@ -7,3 +7,6 @@ Látótér Optika/
 
 # Claude Code project files
 .claude/
+
+# Node deps for the logo-fetch tool (regenerate with `npm install`)
+tools/logo-fetch/node_modules/
