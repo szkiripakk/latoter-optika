@@ -163,7 +163,7 @@ body { margin: 0; }
 #ltv-wrap .ltv-brand:hover { transform: translateY(-3px); box-shadow: var(--ltv-shadow); border-color: var(--ltv-green-soft); }
 #ltv-wrap .ltv-brand__logo { height: 46px; width: auto; max-width: 100%; object-fit: contain; }
 #ltv-wrap .ltv-brand__name { font-family: var(--ltv-font-display) !important; font-size: 1.05rem; font-weight: 600; color: var(--ltv-ink); letter-spacing: -0.01em; }
-#ltv-wrap .ltv-brand.has-logo .ltv-brand__name { font-size: 0.78rem; font-weight: 500; color: var(--ltv-gray); text-transform: uppercase; letter-spacing: 0.07em; }
+#ltv-wrap .ltv-brand.has-logo .ltv-brand__name { display: none; }
 #ltv-wrap .ltv-brand.is-hidden { display: none; }
 #ltv-wrap .ltv-brands__more { display: flex; justify-content: center; margin-top: 2.25rem; }
 @media (max-width: 560px) {
