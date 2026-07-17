@@ -63,4 +63,3 @@ Jean Louis Bertier         -> jean-louis-bertier.png
 David Beckham              -> david-beckham.png
 Armani Exchange            -> armani-exchange.png
 Ralph Lauren               -> ralph-lauren.png
-Ozzie                      -> ozzie.png
