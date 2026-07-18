@@ -46,7 +46,7 @@ function latoter_assets() {
 	);
 
 	// Megosztott stílusrendszer (a teljes dizájn; dokumentáció: STYLE.md a repóban).
-	wp_enqueue_style( 'latoter-ltv', get_template_directory_uri() . '/assets/ltv.css', array( 'latoter-fonts' ), '1.3.0' );
+	wp_enqueue_style( 'latoter-ltv', get_template_directory_uri() . '/assets/ltv.css', array( 'latoter-fonts' ), '1.4.0' );
 
 	// A téma style.css (WordPress miatt kötelező; a fő CSS az assets/ltv.css-ben van).
 	wp_enqueue_style( 'latoter-style', get_stylesheet_uri(), array( 'latoter-ltv' ), '1.0.0' );
